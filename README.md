@@ -36,6 +36,26 @@ Full documentation: [`optolink_splitter/DOCS.md`](optolink_splitter/DOCS.md)
 > `/addons` share of your HAOS machine (Samba app) and it appears in the
 > store under the local section.
 
+## Dashboard (graphical heat pump card)
+
+The [`examples/`](examples/) folder contains a ready-made mapping of this
+app's entities to the
+[lovelace-heat-pump-card](https://github.com/ManfredTremmel/lovelace-heat-pump-card),
+a graphical schematic of the heat pump (compressor, fan, pumps, buffer tank,
+refrigerant circuit, e-heater, modes):
+
+1. Install **lovelace-heat-pump-card** via HACS.
+2. Add the template helpers from
+   [`examples/heat_pump_card_helpers.yaml`](examples/heat_pump_card_helpers.yaml)
+   to your `configuration.yaml` (they derive the card's mode/binary sensors
+   from `hk2_mode`, `compressor_phase`, `fan_speed` and `eheater_power`).
+3. Add a manual card to a dashboard with the contents of
+   [`examples/heat-pump-card.yaml`](examples/heat-pump-card.yaml).
+4. Check the entity ids (Settings -> Devices & Services -> MQTT ->
+   Vitocal 300-A) - the examples assume the default device name. Using HK1
+   instead of HK2? Replace `hk2` with `hk1` in both files. No DHW cylinder?
+   Set `tankWW: false` and remove the DHW lines.
+
 ## Layout
 
 ```

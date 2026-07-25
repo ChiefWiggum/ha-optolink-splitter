@@ -1,0 +1,75 @@
+# lovelace-heat-pump-card configuration for the Vitocal 300-A (WO1C)
+# entities published by this add-on's default poll list.
+#
+# Requires:
+#  - https://github.com/ManfredTremmel/lovelace-heat-pump-card (install via HACS)
+#  - the template helpers from heat_pump_card_helpers.yaml
+#
+# NOTE: entity ids assume the default device name "Vitocal 300-A".
+# Verify under Settings -> Devices & Services -> MQTT -> Vitocal 300-A
+# and search/replace if yours differ.
+# If your heating circuit is HK1, replace hk2 with hk1 throughout.
+
+type: custom:heat-pump-card
+title: Vitocal 300-A
+heatingPumpType: A2W
+
+# Status / modes
+heatingPumpStatusOnOff: binary_sensor.vitocal_card_on_off
+heatingPumpHeatingMode: binary_sensor.vitocal_card_heating_mode
+heatingPumpHotWaterMode: binary_sensor.vitocal_300_a_dhw_loading_pump
+heatingPumpPartyMode: binary_sensor.vitocal_card_party_mode
+heatingPumpEnergySaveMode: binary_sensor.vitocal_card_energy_save_mode
+heatingPumpNightMode: binary_sensor.vitocal_card_night_mode
+warning: binary_sensor.vitocal_300_a_error
+defrostMode: binary_sensor.vitocal_300_a_defrost_active
+additionalHeating: switch.vitocal_300_a_eheater_enabled
+
+# Temperatures / setpoints
+outdoorTemperature: sensor.vitocal_300_a_outside_temperature
+ambientTemperatureNormal: number.vitocal_300_a_hk2_normal_temperature
+ambientTemperatureReduced: number.vitocal_300_a_hk2_reduced_temperature
+ambientTemperatureParty: number.vitocal_300_a_hk2_party_temperature
+supplyTemperature: sensor.vitocal_300_a_secondary_supply_temperature
+
+# Machine
+hpRunning: binary_sensor.vitocal_card_hp_running
+compressorRunning: binary_sensor.vitocal_300_a_compressor_running
+compressorValue: sensor.vitocal_300_a_compressor_power
+circulatingPumpRunning: binary_sensor.vitocal_300_a_dhw_circulation_pump
+storageChargingPumpRunning: binary_sensor.vitocal_300_a_dhw_loading_pump
+
+# Refrigerant circuit
+evaporatorTemperature: sensor.vitocal_300_a_evaporation_temperature
+evaporatorPressure: sensor.vitocal_300_a_suction_gas_pressure
+condenserTemperature: sensor.vitocal_300_a_condensation_temperature
+condenserPressure: sensor.vitocal_300_a_hot_gas_pressure
+
+# Buffer + DHW tanks. The tanks are drawn only when tankHP / tankWW is true -
+# no DHW cylinder? Set tankWW: false (or delete the block) and also remove the
+# heatingPumpHotWaterMode / circulatingPumpRunning / storageChargingPumpRunning
+# lines above.
+tankHP: true
+tankTempHPUp: sensor.vitocal_300_a_buffer_temperature
+tankWW: true
+tankTempWWUp: sensor.vitocal_300_a_dhw_temperature
+
+# Heating circuit (HK2)
+heatingCircuitType1: radiator            # or: underfloor
+heatingCircuitPumpRunning: binary_sensor.vitocal_300_a_hk2_pump
+supplyTemperatureHeating: sensor.vitocal_300_a_hk2_supply_temperature
+refluxTemperatureHeating: sensor.vitocal_300_a_secondary_return_temperature
+
+# E-heater stages
+heaterRodLevel1: binary_sensor.vitocal_card_heater_rod_level_1
+heaterRodLevel2: binary_sensor.vitocal_card_heater_rod_level_2
+
+# Extra readouts at the bottom of the card
+additionalLabel000: COP
+additionalValue000: sensor.vitocal_300_a_cop
+additionalLabel001: Thermal power
+additionalValue001: sensor.vitocal_300_a_thermal_power
+additionalLabel002: Electrical power
+additionalValue002: sensor.vitocal_300_a_electrical_power
+additionalLabel003: Fan
+additionalValue003: sensor.vitocal_300_a_fan_speed
