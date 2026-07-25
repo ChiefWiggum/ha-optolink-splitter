@@ -1,0 +1,42 @@
+configuration:
+  optolink_port:
+    name: Optolink serial port
+    description: >-
+      Device path of the Optolink USB cable, e.g. /dev/ttyUSB0 or (better)
+      /dev/serial/by-id/....
+  vitoconnect_port:
+    name: Vitoconnect serial port
+    description: Optional passthrough port for a Vitoconnect. Leave empty if none.
+  mqtt_broker:
+    name: MQTT broker (host:port)
+    description: Leave empty to auto-detect the Mosquitto broker add-on.
+  mqtt_user:
+    name: MQTT username
+    description: Leave empty for auto-detection with Mosquitto.
+  mqtt_password:
+    name: MQTT password
+    description: Leave empty for auto-detection with Mosquitto.
+  mqtt_topic:
+    name: MQTT base topic
+  mqtt_retain:
+    name: Retain MQTT messages
+  ha_discovery:
+    name: Publish Home Assistant discovery
+    description: Creates HA entities automatically from homeassistant_poll_list.py.
+  poll_interval:
+    name: Poll interval (seconds)
+  wo1c_energy:
+    name: WO1C energy statistics cycle
+    description: Read WO1C daily/weekly energy stats every N-th cycle. 0 disables.
+  tcpip_port:
+    name: TCP port (Viessdata)
+    description: 0 disables the TCP interface.
+  log_level:
+    name: Log level
+  debug_optolink_rx:
+    name: Log raw Optolink RX data
+  write_log_file:
+    name: Write log file to config folder
+  custom_settings:
+    name: Custom settings lines
+    description: Raw Python lines appended to the generated settings_ini.py.

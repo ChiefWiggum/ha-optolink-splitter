@@ -1,0 +1,59 @@
+name: Optolink Splitter
+version: "1.1.0"
+slug: optolink_splitter
+description: >-
+  Local Viessmann Optolink <-> MQTT bridge for Vitocal / Vitodens / Vitocrossal
+  (wraps philippoo66/optolink-splitter). Publishes datapoints via MQTT with
+  Home Assistant discovery, supports writing values via /set topics.
+url: https://github.com/ChiefWiggum/ha-optolink-splitter
+arch:
+  - aarch64
+  - amd64
+  - armv7
+init: false
+startup: services
+boot: auto
+uart: true
+map:
+  - addon_config:rw
+services:
+  - mqtt:want
+ports:
+  65234/tcp: null
+ports_description:
+  65234/tcp: >-
+    Optional TCP interface of Optolink Splitter (e.g. for Viessdata).
+    Leave unmapped to keep it internal. Also set the tcpip_port option > 0.
+options:
+  optolink_port: /dev/ttyUSB0
+  vitoconnect_port: ""
+  mqtt_broker: ""
+  mqtt_user: ""
+  mqtt_password: ""
+  mqtt_topic: vitocal
+  mqtt_retain: false
+  ha_discovery: true
+  poll_interval: 30
+  wo1c_energy: 0
+  tcpip_port: 0
+  log_level: info
+  debug_optolink_rx: false
+  write_log_file: false
+  custom_settings: []
+schema:
+  optolink_port: str
+  vitoconnect_port: str
+  mqtt_broker: str
+  mqtt_user: str
+  mqtt_password: password
+  mqtt_topic: str
+  mqtt_retain: bool
+  ha_discovery: bool
+  poll_interval: int(0,)
+  wo1c_energy: int(0,)
+  tcpip_port: int(0,65535)
+  log_level: list(debug|info|warning|error)
+  debug_optolink_rx: bool
+  write_log_file: bool
+  custom_settings:
+    - str
