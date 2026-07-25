@@ -67,9 +67,9 @@ heaterRodLevel2: binary_sensor.vitocal_card_heater_rod_level_2
 # Extra readouts at the bottom of the card
 additionalLabel000: COP
 additionalValue000: sensor.vitocal_300_a_cop
-additionalLabel001: Thermal power
+additionalLabel001: Heizleistung
 additionalValue001: sensor.vitocal_300_a_thermal_power
-additionalLabel002: Electrical power
+additionalLabel002: Leistungsaufnahme
 additionalValue002: sensor.vitocal_300_a_electrical_power
-additionalLabel003: Fan
+additionalLabel003: Lüfter
 additionalValue003: sensor.vitocal_300_a_fan_speed
