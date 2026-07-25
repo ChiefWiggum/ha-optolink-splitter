@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.0.1
+
+- German translation of the app options.
+- Graphical dashboard example: mapping of the app's entities to the
+  [lovelace-heat-pump-card](https://github.com/ManfredTremmel/lovelace-heat-pump-card),
+  including the required template helpers (`examples/` folder in the
+  repository, see README).
+
 ## 1.0.0
 
 Initial release.
