@@ -50,7 +50,7 @@ optolink_splitter/
     homeassistant_poll_list.py      Vitocal 300-A / WO1C starter datapoints
   DOCS.md                           user documentation
   CHANGELOG.md
-  translations/en.yaml              option labels for the HA UI
+  translations/                     option labels for the HA UI (en, de)
 ```
 
 ## Credits

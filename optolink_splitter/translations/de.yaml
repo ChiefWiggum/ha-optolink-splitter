@@ -1,0 +1,48 @@
+configuration:
+  optolink_port:
+    name: Optolink serieller Port
+    description: >-
+      Gerätepfad des Optolink-USB-Kabels, z. B. /dev/ttyUSB0 oder (besser)
+      /dev/serial/by-id/....
+  vitoconnect_port:
+    name: Vitoconnect serieller Port
+    description: >-
+      Optionaler Durchleitungs-Port für eine Vitoconnect. Leer lassen, wenn
+      keine vorhanden ist.
+  mqtt_broker:
+    name: MQTT-Broker (Host:Port)
+    description: Leer lassen, um die Mosquitto-Broker-App automatisch zu erkennen.
+  mqtt_user:
+    name: MQTT-Benutzername
+    description: Leer lassen für automatische Erkennung mit Mosquitto.
+  mqtt_password:
+    name: MQTT-Passwort
+    description: Leer lassen für automatische Erkennung mit Mosquitto.
+  mqtt_topic:
+    name: MQTT-Basis-Topic
+  mqtt_retain:
+    name: MQTT-Nachrichten mit Retain-Flag senden
+  ha_discovery:
+    name: Home Assistant Discovery veröffentlichen
+    description: >-
+      Erzeugt HA-Entitäten automatisch aus homeassistant_poll_list.py.
+  poll_interval:
+    name: Abfrageintervall (Sekunden)
+  wo1c_energy:
+    name: WO1C-Energiestatistik-Zyklus
+    description: >-
+      WO1C-Tages-/Wochen-Energiestatistik in jedem N-ten Zyklus lesen.
+      0 deaktiviert.
+  tcpip_port:
+    name: TCP-Port (Viessdata)
+    description: 0 deaktiviert die TCP-Schnittstelle.
+  log_level:
+    name: Log-Level
+  debug_optolink_rx:
+    name: Optolink-RX-Rohdaten protokollieren
+  write_log_file:
+    name: Logdatei in den Konfigurationsordner schreiben
+  custom_settings:
+    name: Eigene Einstellungszeilen
+    description: >-
+      Python-Rohzeilen, die an die generierte settings_ini.py angehängt werden.
