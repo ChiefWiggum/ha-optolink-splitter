@@ -60,6 +60,10 @@ refrigerant circuit, e-heater, modes):
 
 ```
 repository.yaml                     add-on repository manifest
+LICENSE                             GPL-3.0
+examples/
+  heat-pump-card.yaml               lovelace-heat-pump-card mapping (dashboard)
+  heat_pump_card_helpers.yaml       template sensors required by the card
 optolink_splitter/
   config.yaml                       add-on manifest (options, schema, uart, mqtt)
   build.yaml                        base images per architecture

@@ -1,5 +1,5 @@
 name: Optolink Splitter
-version: "1.0.1"
+version: "1.0.2"
 slug: optolink_splitter
 description: >-
   Local Viessmann Optolink <-> MQTT bridge for Vitocal / Vitodens / Vitocrossal

@@ -1,5 +1,19 @@
 # Changelog
 
+## 1.0.2
+
+Poll list template fixes:
+
+- Removed invalid `state_class` from the writable number entities - Home
+  Assistant's MQTT discovery rejects number configs with this key, which
+  could prevent all setpoint / heating-curve sliders from being created.
+- Heating-curve level sliders now allow negative values (min -13, was 0).
+- DHW setpoint slider range aligned with the water_heater entity (30-60 C).
+
+NOTE: the template is only copied to /addon_configs/ on first start. If a
+homeassistant_poll_list.py already exists there, apply these changes
+manually (or delete the file and restart the app to re-seed it).
+
 ## 1.0.1
 
 - German translation of the app options.

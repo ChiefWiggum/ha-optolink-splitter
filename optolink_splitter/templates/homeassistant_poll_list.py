@@ -213,7 +213,6 @@ poll_list = {
             "domain": "number",
             "command_topic": "%mqtt_listen%",
             "command_template": "{{ \"w;%DpAddr%;%Length%;\"~(value*10)|int }}",
-            "state_class": "measurement",
             "units": [
                 {
                     "unit_of_measurement": "\u00b0C", "min": "10", "max": "30",
@@ -230,7 +229,7 @@ poll_list = {
                     ],
                 },
                 {
-                    "unit_of_measurement": "\u00b0C", "min": "10", "max": "60",
+                    "unit_of_measurement": "\u00b0C", "min": "30", "max": "60",
                     "step": "1", "icon": "mdi:water-thermometer",
                     "entity_category": "config",
                     "poll": [
@@ -239,7 +238,7 @@ poll_list = {
                     ],
                 },
                 {
-                    "min": "0", "max": "40", "step": "1",
+                    "min": "-13", "max": "40", "step": "1",
                     "entity_category": "config", "icon": "mdi:plus-minus-variant",
                     "poll": [
                         ("SLOW", "hk1_heating_curve_level", 0x2006, 2, 0.1, True),   # delete if HK2
