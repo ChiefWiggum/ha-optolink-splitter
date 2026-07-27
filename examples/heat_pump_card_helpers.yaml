@@ -11,9 +11,9 @@
 #     packages:
 #       heat_pump_card: !include heat_pump_card_helpers.yaml
 #
-# NOTE: entity ids below assume the default add-on setup (device name
-# "Vitocal 300-A"). Verify them under Settings -> Devices & Services ->
-# MQTT -> Vitocal 300-A and search/replace if yours differ.
+# NOTE: entity ids follow the poll list's dp_prefix ("vitocal_"), e.g.
+# sensor.vitocal_hk2_mode. Changed the prefix? Verify under Settings ->
+# Devices & Services -> MQTT -> Vitocal 300-A and search/replace.
 # If your heating circuit is HK1, replace hk2 with hk1 throughout.
 
 template:
@@ -21,37 +21,37 @@ template:
       # Overall on/off: HK operating mode 0 = off/standby
       - name: "Vitocal card on/off"
         unique_id: vitocal_card_on_off
-        state: "{{ states('sensor.vitocal_300_a_hk2_mode') not in ['0', 'unknown', 'unavailable'] }}"
+        state: "{{ states('sensor.vitocal_hk2_mode') not in ['0', 'unknown', 'unavailable'] }}"
 
       # Compressor phase: 2 = Heating (compressor_phase is already text-mapped)
       - name: "Vitocal card heating mode"
         unique_id: vitocal_card_heating_mode
-        state: "{{ states('sensor.vitocal_300_a_compressor_phase') == 'Heating' }}"
+        state: "{{ states('sensor.vitocal_compressor_phase') == 'Heating' }}"
 
       # Party / eco / reduced, from the raw HK mode value
       # 4 = perm. reduced, 6 = eco, 66 = party 8h, 130 = save -5K
       - name: "Vitocal card party mode"
         unique_id: vitocal_card_party_mode
-        state: "{{ states('sensor.vitocal_300_a_hk2_mode') == '66' }}"
+        state: "{{ states('sensor.vitocal_hk2_mode') == '66' }}"
 
       - name: "Vitocal card energy save mode"
         unique_id: vitocal_card_energy_save_mode
-        state: "{{ states('sensor.vitocal_300_a_hk2_mode') in ['6', '130'] }}"
+        state: "{{ states('sensor.vitocal_hk2_mode') in ['6', '130'] }}"
 
       - name: "Vitocal card night mode"
         unique_id: vitocal_card_night_mode
-        state: "{{ states('sensor.vitocal_300_a_hk2_mode') == '4' }}"
+        state: "{{ states('sensor.vitocal_hk2_mode') == '4' }}"
 
       # "Primary source" for an air-source unit = the fan
       - name: "Vitocal card hp running"
         unique_id: vitocal_card_hp_running
-        state: "{{ states('sensor.vitocal_300_a_fan_speed') | float(0) > 0 }}"
+        state: "{{ states('sensor.vitocal_fan_speed') | float(0) > 0 }}"
 
       # E-heater stages: 0 / 3000 / 6000 / 9000 W
       - name: "Vitocal card heater rod level 1"
         unique_id: vitocal_card_heater_rod_level_1
-        state: "{{ states('sensor.vitocal_300_a_eheater_power') | float(0) > 0 }}"
+        state: "{{ states('sensor.vitocal_eheater_power') | float(0) > 0 }}"
 
       - name: "Vitocal card heater rod level 2"
         unique_id: vitocal_card_heater_rod_level_2
-        state: "{{ states('sensor.vitocal_300_a_eheater_power') | float(0) >= 6000 }}"
+        state: "{{ states('sensor.vitocal_eheater_power') | float(0) >= 6000 }}"
