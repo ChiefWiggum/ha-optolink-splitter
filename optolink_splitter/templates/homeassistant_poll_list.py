@@ -12,13 +12,13 @@ SOURCES (community-tested WO1C air-source configurations):
   Both from: https://github.com/philippoo66/optolink-splitter/wiki/350-Poll-Configuration-Samples
   Cross-checked against https://github.com/openv/openv/wiki (WO1C address pages).
 
-HEATING CIRCUIT NOTE (important!):
-  Both reference systems run their (only) heating circuit as HK2 (typical when
-  a mixer / buffer is involved). Your 300-A may use HK1 instead. Both circuit
-  blocks are active below - after the first minutes, KEEP the circuit that
-  shows plausible values and DELETE the other:
-    HK1: 0xB000 mode, 0x2xxx setpoints, 0x010A/0x1800 supply, 0x048D pump
+HEATING CIRCUIT NOTE:
+  All known real WO1C air-source systems (both reference systems and a
+  verified Vitocal 300-A) run their heating circuit as HK2, so this template
+  only polls HK2. In the unlikely case your system uses HK1 (HK2 values stay
+  at 0 / implausible), replace the HK2 addresses with their HK1 counterparts:
     HK2: 0xB001 mode, 0x3xxx setpoints, 0x0114/0x1801 supply, 0x048E pump
+    HK1: 0xB000 mode, 0x2xxx setpoints, 0x010A/0x1800 supply, 0x048D pump
 
 After editing: restart the add-on. Probe single addresses any time via MQTT:
     publish to <mqtt_topic>/cmnd:  read;0x01cd;3;0.1   (answer on .../resp)
@@ -63,10 +63,6 @@ poll_list = {
                 ("FAST",   "buffer_temperature",              0x010B, 2, 0.1, False),          # [A][S] buffer top
                 ("FAST",   "dhw_temperature",                 0x01CD, 3, 'b:0:1', 0.1, True),  # [A][S] DHW storage top
 
-                # --- HK1 (delete this block if your circuit is HK2) -----------
-                ("FAST",   "hk1_supply_temperature",          0x010A, 2, 0.1, False),
-                ("FAST",   "hk1_supply_target_temperature",   0x1800, 2, 0.1, False),
-                # --- HK2 (delete this block if your circuit is HK1) -----------
                 ("FAST",   "hk2_supply_temperature",          0x0114, 2, 0.1, False),          # [A][S]
                 ("FAST",   "hk2_supply_target_temperature",   0x1801, 2, 0.1, False),          # [A][S]
 
@@ -162,8 +158,7 @@ poll_list = {
                     "device_class": "running",
                     "icon": "mdi:pump",
                     "poll": [
-                        ("FAST", "hk1_pump",             0x048D, 1, 1, False),   # delete if circuit is HK2
-                        ("FAST", "hk2_pump",             0x048E, 1, 1, False),   # [A][S] delete if circuit is HK1
+                        ("FAST", "hk2_pump",             0x048E, 1, 1, False),   # [A][S]
                         ("FAST", "secondary_pump_relay", 0x0484, 1, 1, False),   # [S]
                         # 0x0496 dhw_loading_pump [S] did NOT respond on a real
                         # Vitocal 300-A - probe with 'read;0x0496;1' before
@@ -208,8 +203,7 @@ poll_list = {
             "entity_category": "diagnostic",
             "icon": "mdi:cog",
             "poll": [
-                ("FAST", "hk1_mode", 0xB000, 1, 1, False),   # delete if circuit is HK2
-                ("FAST", "hk2_mode", 0xB001, 1, 1, False),   # delete if circuit is HK1
+                ("FAST", "hk2_mode", 0xB001, 1, 1, False),
             ],
         },
 
@@ -225,14 +219,9 @@ poll_list = {
                     "unit_of_measurement": "\u00b0C", "min": "10", "max": "30",
                     "step": "0.5", "mode": "slider", "icon": "mdi:thermometer",
                     "poll": [
-                        # HK1 (delete if circuit is HK2)
-                        ("MEDIUM", "hk1_normal_temperature",  0x2000, 2, 0.1, False),
-                        ("MEDIUM", "hk1_reduced_temperature", 0x2001, 2, 0.1, False),
-                        ("MEDIUM", "hk1_party_temperature",   0x2022, 2, 0.1, False),
-                        # HK2 (delete if circuit is HK1)  [A][S]
-                        ("MEDIUM", "hk2_normal_temperature",  0x3000, 2, 0.1, False),
-                        ("MEDIUM", "hk2_reduced_temperature", 0x3001, 2, 0.1, False),
-                        ("MEDIUM", "hk2_party_temperature",   0x3022, 2, 0.1, False),
+                        ("MEDIUM", "hk2_normal_temperature",  0x3000, 2, 0.1, False),   # [A][S]
+                        ("MEDIUM", "hk2_reduced_temperature", 0x3001, 2, 0.1, False),   # [A][S]
+                        ("MEDIUM", "hk2_party_temperature",   0x3022, 2, 0.1, False),   # [A][S]
                     ],
                 },
                 {
@@ -248,16 +237,14 @@ poll_list = {
                     "min": "-13", "max": "40", "step": "1",
                     "entity_category": "config", "icon": "mdi:plus-minus-variant",
                     "poll": [
-                        ("SLOW", "hk1_heating_curve_level", 0x2006, 2, 0.1, True),   # delete if HK2
-                        ("SLOW", "hk2_heating_curve_level", 0x3006, 2, 0.1, True),   # [A][S] delete if HK1
+                        ("SLOW", "hk2_heating_curve_level", 0x3006, 2, 0.1, True),   # [A][S]
                     ],
                 },
                 {
                     "min": "0", "max": "3.5", "step": "0.1",
                     "entity_category": "config", "icon": "mdi:slope-uphill",
                     "poll": [
-                        ("SLOW", "hk1_heating_curve_inclination", 0x2007, 2, 0.1, True),  # delete if HK2
-                        ("SLOW", "hk2_heating_curve_inclination", 0x3007, 2, 0.1, True),  # [A][S] delete if HK1
+                        ("SLOW", "hk2_heating_curve_inclination", 0x3007, 2, 0.1, True),  # [A][S]
                     ],
                 },
             ],

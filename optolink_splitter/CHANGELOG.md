@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.0.5
+
+- Poll list template now polls only heating circuit HK2 - the HK1 datapoints
+  are removed (all known real WO1C air-source systems, including a verified
+  Vitocal 300-A, run their circuit as HK2). The HK1 address mapping stays
+  documented in the template header for the rare HK1 system.
+- Docs updated accordingly; ad-hoc write example now uses the HK2 address.
+
 ## 1.0.4
 
 First field feedback from a real Vitocal 300-A (thanks!):

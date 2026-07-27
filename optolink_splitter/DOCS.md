@@ -50,8 +50,9 @@ On first start a `homeassistant_poll_list.py` starter template for a
 Vitocal 300-A (WO1C) is placed there. It is built from community-tested
 air-source WO1C configurations (Vitocal 200-A monobloc and 200-S, see the
 [350 Poll Configuration Samples wiki page](https://github.com/philippoo66/optolink-splitter/wiki/350-Poll-Configuration-Samples)).
-Both HK1 and HK2 heating-circuit blocks are active - keep the one that shows
-real values on your system and delete the other. Edit it, then restart the app.
+The template polls heating circuit HK2 (all known real WO1C air-source
+systems use HK2); if yours runs on HK1, the address mapping is documented in
+the template header. Edit it, then restart the app.
 Upstream reference examples are copied alongside as `*.example` files.
 
 Two formats are supported (upstream behavior):
@@ -71,7 +72,7 @@ and the [openv wiki](https://github.com/openv/openv/wiki).
 Publish to `<mqtt_topic>/cmnd` (response arrives on `<mqtt_topic>/resp`):
 
     read;0x0101;2;0.1          # read outside temperature
-    write;0x2000;2;220         # set HK1 normal temp to 22.0 (raw value, scale 1/10)
+    write;0x3000;2;220         # set HK2 normal temp to 22.0 (raw value, scale 1/10)
 
 Every polled datapoint also accepts writes on `<mqtt_topic>/<name>/set` using
 the same format it is published in (e.g. payload `21.5`).
