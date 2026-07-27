@@ -70,7 +70,7 @@ additionalLabel000: COP
 additionalValue000: sensor.vitocal_cop
 additionalLabel001: Heizleistung
 additionalValue001: sensor.vitocal_thermal_power
-additionalLabel002: Leistungsaufnahme
+additionalLabel002: El. Leistung
 additionalValue002: sensor.vitocal_electrical_power
 additionalLabel003: Lüfter
 additionalValue003: sensor.vitocal_fan_speed
