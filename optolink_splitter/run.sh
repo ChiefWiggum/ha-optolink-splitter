@@ -211,13 +211,22 @@ export PYTHONPATH="${CONF_DIR}:${GEN_DIR}:${SPLITTER_DIR}"
 export PYTHONUNBUFFERED=1
 cd "${CONF_DIR}"
 
+# homeassistant_publish.py requires the splitter's LWT to be 'online', so it
+# must run AFTER the splitter is up - do it in the background with retries.
 if bashio::config.true 'ha_discovery' \
    && [[ -f "${CONF_DIR}/homeassistant_poll_list.py" ]] \
    && [[ ! -f "${CONF_DIR}/poll_list.py" ]]; then
-    bashio::log.info "Publishing Home Assistant MQTT discovery entities..."
-    if ! python3 "${SPLITTER_DIR}/homeassistant_publish.py"; then
-        bashio::log.warning "Discovery publish failed (broker not ready or list error) - continuing."
-    fi
+    (
+        for attempt in 1 2 3; do
+            sleep 15
+            bashio::log.info "Publishing HA MQTT discovery entities (attempt ${attempt}/3)..."
+            if python3 "${SPLITTER_DIR}/homeassistant_publish.py"; then
+                bashio::log.info "HA discovery entities published."
+                exit 0
+            fi
+        done
+        bashio::log.warning "HA discovery publish failed - is the splitter online (check LWT)?"
+    ) &
 fi
 
 bashio::log.info "Starting Optolink Splitter on ${OPTOLINK_PORT} ..."

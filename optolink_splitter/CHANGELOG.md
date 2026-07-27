@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.0.3
+
+- Fix: HA discovery entities were never published. homeassistant_publish.py
+  waits for the splitter's MQTT LWT to be 'online', but the add-on ran it
+  before starting the splitter. Discovery now runs in the background (up to
+  3 attempts, 15 s apart) after the splitter has started.
+
 ## 1.0.2
 
 Poll list template fixes:
