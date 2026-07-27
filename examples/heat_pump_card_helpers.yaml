@@ -47,6 +47,17 @@ template:
         unique_id: vitocal_card_hp_running
         state: "{{ states('sensor.vitocal_fan_speed') | float(0) > 0 }}"
 
+      # 0x0480 compressor_running does not respond on a real Vitocal 300-A -
+      # derive the state from the compressor modulation instead
+      - name: "Vitocal card compressor running"
+        unique_id: vitocal_card_compressor_running
+        state: "{{ states('sensor.vitocal_compressor_power') | float(0) > 0 }}"
+
+      # 0x0496 dhw_loading_pump does not respond either - use the pump speed
+      - name: "Vitocal card dhw charging"
+        unique_id: vitocal_card_dhw_charging
+        state: "{{ states('sensor.vitocal_dhw_pump_speed') | float(0) > 0 }}"
+
       # E-heater stages: 0 / 3000 / 6000 / 9000 W
       - name: "Vitocal card heater rod level 1"
         unique_id: vitocal_card_heater_rod_level_1

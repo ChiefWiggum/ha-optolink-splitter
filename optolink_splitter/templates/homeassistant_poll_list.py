@@ -141,13 +141,17 @@ poll_list = {
             "payload_on": "1",
             "payload_off": "0",
             "units": [
-                {
-                    "device_class": "power",
-                    "icon": "mdi:heat-pump-outline",
-                    "poll": [
-                        ("ALWAYS", "compressor_running", 0x0480, 1, 1, False),   # [S]
-                    ],
-                },
+                # 0x0480 compressor_running [S] did NOT respond on a real
+                # Vitocal 300-A (never publishes). Probe with 'read;0x0480;1'
+                # and re-enable if your unit answers; otherwise derive the
+                # state from compressor_power > 0 (see examples/ in the repo).
+                # {
+                #     "device_class": "power",
+                #     "icon": "mdi:heat-pump-outline",
+                #     "poll": [
+                #         ("ALWAYS", "compressor_running", 0x0480, 1, 1, False),   # [S]
+                #     ],
+                # },
                 {
                     "icon": "mdi:snowflake-melt",
                     "poll": [
@@ -161,7 +165,10 @@ poll_list = {
                         ("FAST", "hk1_pump",             0x048D, 1, 1, False),   # delete if circuit is HK2
                         ("FAST", "hk2_pump",             0x048E, 1, 1, False),   # [A][S] delete if circuit is HK1
                         ("FAST", "secondary_pump_relay", 0x0484, 1, 1, False),   # [S]
-                        ("FAST", "dhw_loading_pump",     0x0496, 1, 1, False),   # [S]
+                        # 0x0496 dhw_loading_pump [S] did NOT respond on a real
+                        # Vitocal 300-A - probe with 'read;0x0496;1' before
+                        # re-enabling; or derive from dhw_pump_speed (0xB422).
+                        # ("FAST", "dhw_loading_pump",   0x0496, 1, 1, False),   # [S]
                         ("FAST", "dhw_circulation_pump", 0x0490, 1, 1, False),   # [S]
                     ],
                 },

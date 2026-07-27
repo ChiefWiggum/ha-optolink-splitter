@@ -1,5 +1,21 @@
 # Changelog
 
+## 1.0.4
+
+First field feedback from a real Vitocal 300-A (thanks!):
+
+- Poll list template: `compressor_running` (0x0480) and `dhw_loading_pump`
+  (0x0496) never respond on a real 300-A - both are now commented out with
+  probe instructions (`read;0x0480;1` via the cmnd entity) so they can be
+  re-enabled on units that do answer.
+- Dashboard examples: the heat-pump-card now derives "compressor running"
+  from `compressor_power > 0` and "DHW charging" from `dhw_pump_speed > 0`
+  via two new template helpers.
+
+NOTE: the template is only copied to /addon_configs/ on first start - apply
+the change to an existing homeassistant_poll_list.py manually (or delete it
+and restart). Existing helper users: re-copy heat_pump_card_helpers.yaml.
+
 ## 1.0.3
 
 - Fix: HA discovery entities were never published. homeassistant_publish.py

@@ -18,7 +18,7 @@ heatingPumpType: A2W
 # Status / modes
 heatingPumpStatusOnOff: binary_sensor.vitocal_card_on_off
 heatingPumpHeatingMode: binary_sensor.vitocal_card_heating_mode
-heatingPumpHotWaterMode: binary_sensor.vitocal_dhw_loading_pump
+heatingPumpHotWaterMode: binary_sensor.vitocal_card_dhw_charging
 heatingPumpPartyMode: binary_sensor.vitocal_card_party_mode
 heatingPumpEnergySaveMode: binary_sensor.vitocal_card_energy_save_mode
 heatingPumpNightMode: binary_sensor.vitocal_card_night_mode
@@ -35,10 +35,10 @@ supplyTemperature: sensor.vitocal_secondary_supply_temperature
 
 # Machine
 hpRunning: binary_sensor.vitocal_card_hp_running
-compressorRunning: binary_sensor.vitocal_compressor_running
+compressorRunning: binary_sensor.vitocal_card_compressor_running
 compressorValue: sensor.vitocal_compressor_power
 circulatingPumpRunning: binary_sensor.vitocal_dhw_circulation_pump
-storageChargingPumpRunning: binary_sensor.vitocal_dhw_loading_pump
+storageChargingPumpRunning: binary_sensor.vitocal_card_dhw_charging
 
 # Refrigerant circuit
 evaporatorTemperature: sensor.vitocal_evaporation_temperature
