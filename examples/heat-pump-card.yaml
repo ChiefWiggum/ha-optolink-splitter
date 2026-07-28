@@ -56,7 +56,7 @@ tankWW: true
 tankTempWWUp: sensor.vitocal_dhw_temperature
 
 # Heating circuit (HK2)
-heatingCircuitType1: radiator            # or: underfloor
+heatingCircuitType1: underfloor          # or: radiator
 heatingCircuitPumpRunning: binary_sensor.vitocal_hk2_pump
 supplyTemperatureHeating: sensor.vitocal_hk2_supply_temperature
 refluxTemperatureHeating: sensor.vitocal_secondary_return_temperature
